@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{checkout}">Checkout</title>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="/css/main.css" rel="stylesheet" type="text/css">
+    <script src="/js/checkout.js"></script>
+</head>
+<body>
+<div class="checkout">
+    <div class="container">
+        <div class="text-center fs-2" th:text="#{checkout}">Checkout</div>
+        <div class="cart">
+            <div class="fs-4" th:text="#{checkout.cart}">Cart</div>
+            <table class="table table-sm">
+                <tbody>
+                <th:block th:each="i : ${#numbers.sequence(1, session.cartSize)}">
+                    <tr th:class="'tr-' + ${i}">
+                        <td class="product-img"></td>
+                        <td class="product-name"></td>
+                        <td class="product-price">
+                            <div class="row text-center" th:text="#{checkout.cart.price}">Price</div>
+                        </td>
+                        <td class="product-count">
+                            <div class="row text-center" th:text="#{checkout.cart.count}">Count</div>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+            <div class="fs-4 text-center" th:text="#{checkout.cart.total_price} + ': '">Total price: <span class="total-price"></span></div>
+        </div>
+        <div class="delivery">
+            <div class="fs-4" th:text="#{checkout.delivery}">Delivery</div>
+            <div class="form-check">
+                <label for="delivery-option" th:text="#{checkout.delivery_option}">Delivery option</label>
+                <input id="delivery-option" type="radio" name="delivery-option" value="postOffice" th:text="#{checkout.delivery.post_office}" checked/>
+                <input type="radio" name="delivery-option" value="courier" th:text="#{checkout.delivery.courier}"/>
+            </div>
+            <div class="form-floating">
+                <input name="city" class="form-control" id="city" placeholder="City">
+                <label for="city" th:text="#{checkout.delivery.city}">City</label>
+                <span id="cityMessage" class="cityMessage"></span>
+            </div>
+            <div class="post-office-delivery">
+                <div class="form-floating">
+                    <input name="post-office-number" class="form-control" id="post-office-number" placeholder="Post office number">
+                    <label for="post-office-number" th:text="#{checkout.delivery.post_office_number}">Post office number</label>
+                    <span id="post-office-number-message" class="post-office-number-message"></span>
+                </div>
+            </div>
+            <div class="courier-delivery">
+                <div class="form-floating">
+                    <input name="street" class="form-control" id="street" placeholder="Street">
+                    <label for="street" th:text="#{checkout.delivery.street}">Street</label>
+                    <span id="streetMessage" class="streetMessage"></span>
+                </div>
+                <div class="form-floating">
+                    <input name="house" class="form-control" id="house" placeholder="House">
+                    <label for="house" th:text="#{checkout.delivery.house}">House</label>
+                    <span id="houseMessage" class="houseMessage"></span>
+                </div>
+                <div class="form-floating">
+                    <input name="flat" class="form-control" id="flat" placeholder="Flat">
+                    <label for="flat" th:text="#{checkout.delivery.flat}">Flat</label>
+                    <span id="flatMessage" class="flatMessage"></span>
+                </div>
+            </div>
+        </div>
+        <div class="payment">
+            <div class="fs-4" th:text="#{checkout.payment}">Payment</div>
+            <div class="form-check">
+                <label for="payment-option" th:text="#{checkout.payment_option}">Payment option</label>
+                <input id="payment-option" type="radio" name="payment-option" value="cash" th:text="#{checkout.payment.cash}" checked/>
+                <input type="radio" name="payment-option" value="card" th:text="#{checkout.payment.card}"/>
+            </div>
+            <div class="card-payment">
+                <div class="row">
+                    <div class="form-floating">
+                        <input name="card-number" class="form-control" id="card-number" placeholder="Card number">
+                        <label for="card-number" th:text="#{checkout.payment.card_number}">Card number</label>
+                        <span id="card-number-message" class="card-number-message"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="form-floating">
+                            <input name="valid-until" class="form-control" id="valid-until" placeholder="00/00">
+                            <label for="valid-until">00/00</label>
+                            <span id="valid-until-message" class="valid-until-message"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-floating">
+                            <input name="cvv" class="form-control" id="cvv" placeholder="cvv">
+                            <label for="cvv">cvv</label>
+                            <span id="cvv-message" class="cvv-message"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form th:action="@{/checkout}" method="post">
+            <div class="row justify-content-center">
+                <div class="col-2 text-center">
+                    <button class="btn btn-dark" type="submit" th:text="#{checkout.button.make_order}">Make order</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

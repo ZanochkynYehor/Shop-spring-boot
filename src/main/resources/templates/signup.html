@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="/css/main.css" rel="stylesheet" type="text/css">
+    <script src="/js/signup.js"></script>
+    <script src="/js/lang.js"></script>
+    <title th:text="#{signup}">Sign up</title>
+</head>
+<body class="text-center signup">
+<form class="form-signup signupForm" name="signupForm" th:action="@{/signup}" th:object="${signUpBean}" method="post"
+      enctype="multipart/form-data">
+    <h1 class="h3 mb-3 fw-normal" th:text="#{signup}">Sign up</h1>
+    <div class="form-floating">
+        <input th:field="*{firstName}" class="form-control" placeholder="First name">
+        <label for="firstName" th:text="#{signup.first_name}">First Name</label>
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name error</span>
+        <span class="validation-message firstNameMsg" th:text="#{signup.error.first_name}">Invalid first name. You can use letters and symbols like ' and -</span>
+    </div>
+    <div class="form-floating">
+        <input th:field="*{lastName}" class="form-control" placeholder="Last name">
+        <label for="lastName" th:text="#{signup.last_name}">Last Name</label>
+        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name error</span>
+        <span class="validation-message lastNameMsg" th:text="#{signup.error.last_name}">Invalid last name. You can use letters and symbols like ' and -</span>
+    </div>
+    <div class="form-floating">
+        <input th:field="*{email}" class="form-control" placeholder="Email">
+        <label for="email">Email</label>
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</span>
+        <span class="validation-message emailMsg" th:text="#{signup.error.email}">Invalid email</span>
+    </div>
+    <div class="form-floating">
+        <input th:field="*{password}" type="password" class="form-control" placeholder="Password">
+        <label for="password" th:text="#{signup.password}">Password</label>
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</span>
+        <span class="validation-message passwordMsg" th:text="#{signup.error.password}">Invalid password. From 8 to 20 characters, at least one uppercase letter, one lowercase letter and one number required</span>
+    </div>
+    <div class="form-floating">
+        <input th:field="*{confirmPassword}" type="password" class="form-control" placeholder="Confirm password">
+        <label for="confirmPassword" th:text="#{signup.confirm_password}">Confirm Password</label>
+        <span th:if="${#fields.hasErrors('confirmPassword')}"
+              th:errors="*{confirmPassword}">Confirm password error</span>
+        <span class="validation-message confirmPasswordMsg" th:text="#{signup.error.confirm_password}">Passwords don't match</span>
+    </div>
+    <div class="form-check">
+        <label for="receiveNewsletters1" th:text="#{signup.receive_newsletters} + '?'">Receive newsletters?</label>
+        <input th:field="*{receiveNewsletters}" type="radio" value="true" th:text="#{signup.receive_newsletters.yes}"
+               th:checked="*{receiveNewsletters eq 'true'}"/>
+        <input th:field="*{receiveNewsletters}" type="radio" value="false" th:text="#{signup.receive_newsletters.no}"
+               th:checked="*{receiveNewsletters eq 'false'}"/>
+    </div>
+    <div class="avatar">
+        <label class="form-label" for="avatar" th:text="#{signup.attach_avatar}">Avatar:</label>
+        <input th:field="*{avatar}" type="file" class="form-control" accept="image/jpeg,image/png"/>
+    </div>
+
+    <img id="captchaImg" th:src="@{/signup/captcha}" alt="Captcha">
+    <input name="captcha" id="captcha" class="form-control">
+    <span th:if="${#fields.hasErrors('captcha')}" th:errors="*{captcha}">Captcha error</span>
+    <span class="validation-message captchaMsg" th:text="#{signup.error.enter_captcha}">Enter captcha</span>
+
+    <button class="w-100 btn btn-lg btn-dark" type="submit" id="submit" th:text="#{signup.submit}">Submit</button>
+    <hr>
+    <a th:href="@{/login}" class="link-dark" th:text="#{login.label}">Sign in</a>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-lg-5">
+            <div th:replace="fragments/language :: select"></div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

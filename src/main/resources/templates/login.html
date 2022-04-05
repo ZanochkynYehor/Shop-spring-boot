@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="/css/main.css" rel="stylesheet" type="text/css">
+    <script src="/js/login.js"></script>
+    <script src="/js/lang.js"></script>
+    <title th:text="#{login.label}">Sign in</title>
+</head>
+<body class="text-center login">
+<form class="form-login" th:action="@{/login}" method="post">
+    <h1 class="h3 mb-3 fw-normal" th:text="#{login.label}">Sign in</h1>
+    <div th:if="${param.mustSignIn}">
+        <p><span th:text="#{login.must_sign_in_before_action}">You must sign in before this action</span></p>
+    </div>
+    <div th:if="${param.error}">
+        <p><span>[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</span></p>
+    </div>
+    <div class="form-floating">
+        <input name="email" id="email" class="form-control" placeholder="Email">
+        <label for="email">Email</label>
+        <span class="validation-message emailMsg" th:text="#{login.error.enter_email}">Enter email</span>
+    </div>
+    <div class="form-floating">
+        <input name="password" id="password" type="password" class="form-control" placeholder="Password">
+        <label for="password" th:text="#{login.password}">Password</label>
+        <span class="validation-message passwordMsg" th:text="#{login.error.enter_password}">Enter password</span>
+    </div>
+    <button class="w-100 btn btn-lg btn-dark" type="submit" th:text="#{login.submit}">Submit</button>
+    <hr>
+    <a th:href="@{/signup}" class="link-dark" th:text="#{signup}">Sign up</a>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-lg-5">
+            <div th:replace="fragments/language :: select"></div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

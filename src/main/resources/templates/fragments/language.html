@@ -1,0 +1,6 @@
+<div th:fragment="select">
+    <select class="form-select form-select-sm lang-select">
+        <option value="en" th:selected="${#strings.equals(#locale.language, 'en')}">English</option>
+        <option value="ru" th:selected="${#strings.equals(#locale.language, 'ru')}">Русский</option>
+    </select>
+</div>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{product}">Product</title>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="/css/main.css" rel="stylesheet" type="text/css">
+    <script src="/js/cart.js"></script>
+    <script src="/js/lang.js"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header(page='product.html')"></div>
+
+<div class="product">
+    <div class="container">
+        <a class="link-dark" id="backLink" th:href="@{/products}" th:text="#{product.back_link}">Back</a>
+        <div class="row mt-5">
+            <div class="col-lg-5 product-img">
+                <img th:src="'/img/products/' + ${product.id} + '.jpg'" alt="Picture"
+                     onerror="this.src='${appName}/img/products/default.jpg'"/>
+            </div>
+            <div class="col product-info">
+                <div class="panel panel-default">
+                    <div class="panel-body table-responsive">
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <td th:text="#{product.name}">Product name</td>
+                                <td th:text="${product.name}">Name</td>
+                            </tr>
+                            <tr>
+                                <td th:text="#{products.manufacturer}">Manufacturer</td>
+                                <td th:text="${product.manufacturer.name}">Name</td>
+                            </tr>
+                            <tr>
+                                <td th:text="#{products.category}">Category</td>
+                                <td th:text="${product.category.name}">Name</td>
+                            </tr>
+                            <tr>
+                                <td th:text="#{product.description}">Description</td>
+                                <td th:text="${product.description}"></td>
+                            </tr>
+                            <tr>
+                                <td th:text="#{product.price}">Price</td>
+                                <td th:text="${product.price}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-5">
+            <div class="col text-center">
+                <button class="btn btn-md btn-dark add-to-cart-button" th:value="${product.id}" th:text="#{product.button.add_to_cart}">Add to cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

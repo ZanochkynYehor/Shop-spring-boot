@@ -1,0 +1,170 @@
+/* Global */
+input[type=checkbox] {
+	accent-color: black;
+}
+
+/* Login and sign up pages */
+.login, .signup {
+	display: flex;
+	align-items: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+
+.form-login, .form-signup {
+	width: 100%;
+	max-width: 330px;
+	padding: 15px;
+	margin: auto;
+}
+
+.form-login .form-floating:focus-within, .form-signup .form-floating:focus-within {
+	z-index: 2;
+}
+
+.form-login input, .form-signup input {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.signup .avatar {
+	margin-top: 10px;
+}
+
+.signup #captchaImg {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.login button, .signup button {
+	margin-top: 10px;
+}
+
+.login span, .signup span {
+	color: red;
+}
+
+.login .validation-message, .signup .validation-message {
+	display: none;
+}
+
+.signup .form-check {
+	margin-top: 10px;
+}
+
+/* Navbar */
+.navbar {
+	margin-bottom: 30px;
+}
+
+.navbar #userAvatar {
+	height: auto;
+	width: 25px;
+}
+
+/* Products page */
+.products .sort {
+	width: 170px;
+}
+
+.products .filter {
+    width: 260px;
+    border: 1px solid black;
+    float: left
+}
+
+.products .filter .product-price {
+	width: 80px;
+}
+
+.products .filter .between-prices {
+	font-size: x-large;
+}
+
+.products .card {
+    padding: 10px;
+    overflow: visible !important;
+}
+
+.products .card:hover {
+    box-shadow: 2px 2px 10px gray;
+}
+
+.products .card .product-name {
+    font-weight: 600;
+}
+
+.products .card .product-description {
+	font-size: small;
+}
+
+.products .card-body {
+    padding-bottom: 0;
+}
+
+.products .card-img img {
+    padding-top: 10px;
+    width: inherit;
+    height: 130px;
+    object-fit: contain;
+    display: block
+}
+
+.products .add-to-cart-button {
+	z-index: 2;
+	position: relative;
+}
+
+.products .add-to-cart-button:hover {
+	background-color: whitesmoke;
+}
+
+/* Cart modal */
+.cart-modal .product-img img {
+	width: auto;
+    height: 60px;
+}
+
+.cart-modal .product-count {
+	width: 30px;
+	text-align: center;
+}
+
+/* Product page */
+.product .product-img img {
+	width: auto;
+    height: 300px;
+    float: left;
+}
+
+.product table {
+	margin-top: 30px;
+}
+
+/* Checkout page */
+.checkout .cart img {
+	width: auto;
+    height: 60px;
+}
+
+.checkout .courier-delivery {
+	display: none;
+}
+
+.checkout .card-payment {
+	display: none;
+}
+
+.checkout input {
+	max-width: 400px;
+}
+
+/* Pagination */
+.pagination {
+	margin-top: 20px;
+}
+
+.active .page-link {
+	background-color : black !important;
+}

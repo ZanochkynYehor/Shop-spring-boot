@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<head xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+</head>
+
+<div th:fragment="header (page)">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand">Store</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a th:if="${page == 'products.html'}" class="nav-link active" aria-current="page" href="#" th:text="#{products}">Products</a>
+                        <a th:unless="${page == 'products.html'}" class="nav-link" th:href="@{/products}" th:text="#{products}">Products</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <div th:replace="fragments/language :: select"></div>
+                    </li>
+                    <li class="nav-item ms-4">
+                        <a id="open-cart-button" class="nav-link position-relative" data-bs-toggle="modal" data-bs-target="#cart" href="#">
+                            <i class="bi bi-cart-fill" style="font-size: large;"></i>
+                            <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-white text-dark cart-size-badge"
+                                th:style="${session.cartSize == null || session.cartSize == 0} ? 'display: none;': ''" th:text="${session.cartSize}">
+                            </span>
+                        </a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle ms-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img id="userAvatar" th:src="${session.userAvatar}">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#" th:text="${#authentication.getPrincipal().getFirstName()}"></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" onclick="document.getElementById('logout-form').submit();" th:text="#{header.navbar.button.sign_out}">Sign out</a></li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="isAnonymous()" class="nav-item">
+                        <a class="btn btn-light ms-4" th:href="@{/login}" th:text="#{header.navbar.button.sign_in}">Sign in</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <form id="logout-form" th:action="@{/logout}" method="post"></form>
+    <!-- Modal -->
+    <div class="cart-modal">
+        <div class="modal fade" id="cart" tabindex="-1" aria-labelledby="cartLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cartLabel" th:text="#{header.cart}">Cart</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="text-center empty-cart-msg">
+                                <h5 th:text="#{header.cart.empty_cart}">Cart is empty</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="container-fluid">
+                            <div class="row justify-content-center cart-bottom">
+                                <div class="col-lg-3 clear-cart">
+                                    <button class="btn btn-dark clear-cart-button" th:text="#{header.cart.clear_cart}">Clear cart</button>
+                                </div>
+                                <div class="col-lg-5 total-price-div">
+                                    <div class="fs-4 text-center">
+                                        <span th:text="#{header.cart.total_price} + ': '">Total price: </span><span class="total-price"></span></div>
+                                </div>
+                                <div class="col-lg-3 text-end make-order">
+                                    <a class="btn btn-dark make-order-button" th:href="@{/checkout}" th:text="#{header.cart.make_order}">Make order</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
