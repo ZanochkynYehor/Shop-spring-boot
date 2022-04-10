@@ -2,9 +2,9 @@ package com.example.shopspringboot.domain;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +35,7 @@ public class Order {
 	@Column(name = "order_date", nullable = false, insertable = false)
 	private Timestamp date;
 
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
 	private List<OrderProduct> products;
 
 	public Order() {

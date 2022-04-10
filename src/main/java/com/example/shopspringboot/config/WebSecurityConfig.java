@@ -42,21 +42,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(new CheckoutFilter(), X509AuthenticationFilter.class);
 
         http.authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/checkout").hasAnyRole("USER", "ADMIN")
-                .anyRequest().permitAll()
+                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .antMatchers("/checkout").authenticated()
+                    .antMatchers("/orders").authenticated()
+                    .anyRequest().permitAll()
                 .and()
-                .formLogin()
-                .loginPage("/login?mustSignIn")
-                .loginProcessingUrl("/login")
-                .usernameParameter("email")
-                .failureHandler(loginFailureHandler)
-                .successHandler(loginSuccessHandler)
-                .permitAll()
+                    .formLogin()
+                    .loginPage("/login?mustSignIn")
+                    .loginProcessingUrl("/login")
+                    .usernameParameter("email")
+                    .failureHandler(loginFailureHandler)
+                    .successHandler(loginSuccessHandler)
+                    .permitAll()
                 .and()
-                .logout()
-                .logoutSuccessUrl("/products")
-                .deleteCookies("JSESSIONID");
+                    .logout()
+                    .logoutSuccessUrl("/products")
+                    .deleteCookies("JSESSIONID");
     }
 
     @Override

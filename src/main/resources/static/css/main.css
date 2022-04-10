@@ -160,6 +160,12 @@ input[type=checkbox] {
 	max-width: 400px;
 }
 
+/* Orders */
+.orders .product-img img {
+	width: auto;
+	height: 60px;
+}
+
 /* Pagination */
 .pagination {
 	margin-top: 20px;
